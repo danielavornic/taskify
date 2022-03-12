@@ -1,19 +1,27 @@
-import { ChangeEvent, FormEvent, FC, useRef } from 'react';
+import { ChangeEvent, FormEvent, FC, useRef, useState } from 'react';
+import useTodos from '../context';
+import { Todo } from '../types';
 
-interface Props {
-  todo: string;
-  setTodo: React.Dispatch<React.SetStateAction<string>>;
-  handleSubmit: (e: React.FormEvent) => void;
-}
+const InputField: FC = () => {
+  const { addTodo } = useTodos();
+  const [todo, setTodo] = useState<string>('');
 
-const InputField: FC<Props> = ({ todo, setTodo, handleSubmit }) => {
   const inputRef = useRef<HTMLInputElement>(null);
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>) =>
     setTodo(e.target.value);
 
   const handleFormSubmit = (e: FormEvent) => {
-    handleSubmit(e);
+    e.preventDefault();
+    if (todo) {
+      const newTodo: Todo = {
+        id: Date.now(),
+        name: todo,
+        status: 'Not started',
+      };
+      addTodo(newTodo);
+      setTodo('');
+    }
     inputRef.current?.blur();
   };
 
