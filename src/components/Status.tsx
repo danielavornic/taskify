@@ -11,15 +11,18 @@ const Status: FC<Props> = ({ status }) => {
       : status === 'In progress'
       ? 'orange'
       : 'green';
-  const colorStyle = `text-${color}-900 bg-${color}-400`;
+  const statusStyles = [
+    'text-sm',
+    `text-${color}-900`,
+    `bg-${color}-400`,
+    'py-0.5',
+    'px-2',
+    'rounded',
+    'cursor-pointer',
+    'hover:opacity-90',
+  ].join(' ');
 
-  return (
-    <span
-      className={`text-sm ${colorStyle} py-0.5 px-2 rounded cursor-pointer hover:opacity-90`}
-    >
-      {status}
-    </span>
-  );
+  return <span className={statusStyles}>{status}</span>;
 };
 
 export default Status;
