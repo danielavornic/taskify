@@ -24,7 +24,7 @@ const styles = {
     'hover:bg-slate-700',
     'hover:shadow-md',
   ].join(' '),
-  todoName: [
+  todoDelete: [
     'ml-2',
     'cursor-pointer',
     'transition-colors',
@@ -45,7 +45,7 @@ const TodoItem: FC<Props> = ({ todo }) => {
     <div className={styles.todoItem}>
       <span>{todo.name}</span>
       <span
-        className={styles.todoName}
+        className={styles.todoDelete}
         title='Delete todo'
         onClick={handleDeleteClick}
       >
