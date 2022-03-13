@@ -16,13 +16,13 @@ export const TodosProvider: FC<ReactNode> = ({ children }) => {
     });
   };
 
-  const editTodo = (todo: Todo) => {
+  const updateTodoName = (todo: Todo, newName: string) => {
     const updatedTodoList = state.todos.map((t) => {
-      if (t.id === todo.id) return { ...t, name: todo.name };
+      if (t.id === todo.id) return { ...t, name: newName };
       return t;
     });
     dispatch({
-      type: ActionKind.EDIT_TODO,
+      type: ActionKind.UPDATE_TODO_NAME,
       payload: updatedTodoList,
     });
   };
@@ -49,7 +49,7 @@ export const TodosProvider: FC<ReactNode> = ({ children }) => {
   const value = {
     todos: state.todos,
     addTodo,
-    editTodo,
+    updateTodoName,
     updateTodoStatus,
     deleteTodo,
   };

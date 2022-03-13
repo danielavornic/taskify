@@ -11,14 +11,14 @@ export interface Todo {
 export interface StateInterface {
   todos: Todo[];
   addTodo: Function;
-  editTodo: Function;
+  updateTodoName: Function;
   updateTodoStatus: Function;
   deleteTodo: Function;
 }
 
 export enum ActionKind {
   ADD_TODO = 'ADD_TODO',
-  EDIT_TODO = 'EDIT_TODO',
+  UPDATE_TODO_NAME = 'UPDATE_TODO_NAME',
   UPDATE_TODO_STATUS = 'UPDATE_TODO_STATUS',
   DELETE_TODO = 'DELETE_TODO',
 }

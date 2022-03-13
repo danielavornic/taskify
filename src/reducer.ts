@@ -3,7 +3,7 @@ import { ActionKind, Action, StateInterface } from './types';
 export const initialState: StateInterface = {
   todos: [],
   addTodo: () => void 0,
-  editTodo: () => void 0,
+  updateTodoName: () => void 0,
   updateTodoStatus: () => void 0,
   deleteTodo: () => void 0,
 };
@@ -16,7 +16,7 @@ const todosReducer = (
 
   switch (type) {
     case ActionKind.ADD_TODO:
-    case ActionKind.EDIT_TODO:
+    case ActionKind.UPDATE_TODO_NAME:
     case ActionKind.UPDATE_TODO_STATUS:
     case ActionKind.DELETE_TODO:
       return {
