@@ -2,10 +2,10 @@ import { ActionKind, Action, StateInterface } from './types';
 
 export const initialState: StateInterface = {
   todos: [],
-  addTodo: () => undefined,
-  editTodo: () => undefined,
-  updateTodoStatus: () => undefined,
-  deleteTodo: () => undefined,
+  addTodo: () => void 0,
+  editTodo: () => void 0,
+  updateTodoStatus: () => void 0,
+  deleteTodo: () => void 0,
 };
 
 const todosReducer = (
