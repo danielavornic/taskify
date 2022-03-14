@@ -10,10 +10,10 @@ export interface Todo {
 
 export interface StateInterface {
   todos: Todo[];
-  addTodo: Function;
-  updateTodoName: Function;
-  updateTodoStatus: Function;
-  deleteTodo: Function;
+  addTodo: (todo: Todo) => void;
+  updateTodoName: (id: number, newName: string) => void;
+  updateTodoStatus: (id: number, newStatus: string) => void;
+  deleteTodo: (id: number) => void;
 }
 
 export enum ActionKind {
