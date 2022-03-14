@@ -36,7 +36,7 @@ const TodoItem: FC<Props> = ({ todo }) => {
   const handleDeleteClick = () => {
     const confirmDelete = () =>
       window.confirm('Are you sure you want to delete this todo?');
-    confirmDelete() && deleteTodo(todo);
+    confirmDelete() && deleteTodo(todo.id);
   };
 
   const handleInput = (e: ChangeEvent<HTMLElement>) =>
@@ -46,7 +46,7 @@ const TodoItem: FC<Props> = ({ todo }) => {
     e.code === 'Enter' && !e.shiftKey && spanRef.current?.blur();
 
   const handleBlur = () => {
-    updateTodoName(todo, todoName);
+    updateTodoName(todo.id, todoName);
     setItemBg('bg-slate-800');
   };
 

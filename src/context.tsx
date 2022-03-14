@@ -16,9 +16,9 @@ export const TodosProvider: FC<ReactNode> = ({ children }) => {
     });
   };
 
-  const updateTodoName = (todo: Todo, newName: string) => {
+  const updateTodoName = (id: number, newName: string) => {
     const updatedTodoList = state.todos.map((t) => {
-      if (t.id === todo.id) return { ...t, name: newName };
+      if (t.id === id) return { ...t, name: newName };
       return t;
     });
     dispatch({
@@ -27,9 +27,9 @@ export const TodosProvider: FC<ReactNode> = ({ children }) => {
     });
   };
 
-  const updateTodoStatus = (todo: Todo) => {
+  const updateTodoStatus = (id: number, status: string) => {
     const updatedTodoList = state.todos.map((t) => {
-      if (t.id === todo.id) return { ...t, status: todo.status };
+      if (t.id === id) return { ...t, status: status };
       return t;
     });
     dispatch({
@@ -38,8 +38,8 @@ export const TodosProvider: FC<ReactNode> = ({ children }) => {
     });
   };
 
-  const deleteTodo = (todo: Todo) => {
-    const updatedTodoList = state.todos.filter((t) => t.id !== todo.id);
+  const deleteTodo = (id: number) => {
+    const updatedTodoList = state.todos.filter((t) => t.id !== id);
     dispatch({
       type: ActionKind.DELETE_TODO,
       payload: updatedTodoList,
