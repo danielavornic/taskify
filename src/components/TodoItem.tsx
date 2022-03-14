@@ -3,8 +3,10 @@ import { IoTrash } from 'react-icons/io5';
 
 import { Todo } from '../types';
 import useTodos from '../context';
+import { Draggable } from 'react-beautiful-dnd';
 
 interface Props {
+  index: number;
   todo: Todo;
 }
 
@@ -22,59 +24,78 @@ const styles = {
     'transition-all',
     'hover:bg-slate-700',
   ].join(' '),
-  deleteStyles: ['ml-2', 'transition-colors', 'hover:text-red-300'].join(' '),
+  deleteStyles: [
+    'ml-2',
+    'transition-colors',
+    'cursor-pointer',
+    'hover:text-red-300',
+  ].join(' '),
 };
 
-const TodoItem: FC<Props> = ({ todo }) => {
+const TodoItem: FC<Props> = ({ index, todo }) => {
+  const { id, name, status } = todo;
+  const { itemStyles, deleteStyles } = styles;
+
   const { deleteTodo, updateTodoName } = useTodos();
-  const [todoName, setTodoName] = useState<string>(todo.name);
+  const [newName, setNewName] = useState<string>(todo.name);
   const [itemBg, setItemBg] = useState<string>('bg-slate-800');
 
   const spanRef = useRef<HTMLSpanElement>(null);
-  const { itemStyles, deleteStyles } = styles;
 
   const handleDeleteClick = () => {
-    const confirmDelete = () =>
-      window.confirm('Are you sure you want to delete this todo?');
-    confirmDelete() && deleteTodo(todo.id);
+    if (status === 'Done') deleteTodo(id);
+    else {
+      const confirmDelete = () =>
+        window.confirm('Are you sure you want to delete this todo?');
+      confirmDelete() && deleteTodo(id);
+    }
   };
 
   const handleInput = (e: ChangeEvent<HTMLElement>) =>
-    setTodoName(e.target.innerText);
+    setNewName(e.target.innerText);
 
   const handleKeydown = (e: KeyboardEvent) =>
     e.code === 'Enter' && !e.shiftKey && spanRef.current?.blur();
 
   const handleBlur = () => {
-    updateTodoName(todo.id, todoName);
+    updateTodoName(id, newName);
     setItemBg('bg-slate-800');
   };
 
   const handleFocus = () => setItemBg('bg-slate-700');
 
   return (
-    <div className={`${itemStyles} ${itemBg}`}>
-      <span
-        className='outline-none cursor-text'
-        title='Edit todo'
-        contentEditable
-        suppressContentEditableWarning
-        ref={spanRef}
-        onInput={handleInput}
-        onKeyPress={handleKeydown}
-        onBlur={handleBlur}
-        onFocus={handleFocus}
-      >
-        {todo.name}
-      </span>
-      <span
-        className={deleteStyles}
-        title='Delete todo'
-        onClick={handleDeleteClick}
-      >
-        <IoTrash />
-      </span>
-    </div>
+    <Draggable draggableId={id.toString()} index={index}>
+      {({ innerRef, draggableProps, dragHandleProps }) => (
+        <div
+          className={`${itemStyles} ${itemBg}`}
+          ref={innerRef}
+          {...dragHandleProps}
+          {...draggableProps}
+        >
+          <span
+            className='outline-none cursor-text'
+            title='Edit todo'
+            contentEditable
+            suppressContentEditableWarning
+            ref={spanRef}
+            onInput={handleInput}
+            onKeyPress={handleKeydown}
+            onBlur={handleBlur}
+            onFocus={handleFocus}
+          >
+            {name}
+          </span>
+          <span
+            className={deleteStyles}
+            title='Delete todo'
+            onClick={handleDeleteClick}
+          >
+            <IoTrash />
+          </span>
+        </div>
+      )}
+    </Draggable>
   );
 };
 

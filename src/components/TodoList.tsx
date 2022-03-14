@@ -1,4 +1,5 @@
 import { FC } from 'react';
+import { Droppable } from 'react-beautiful-dnd';
 
 import useTodos from '../context';
 import Status from './Status';
@@ -14,13 +15,18 @@ const TodoList: FC<Props> = ({ status }) => {
   return (
     <div className='basis-1/3'>
       <Status status={status} />
-      <div className='mt-4'>
-        {todos
-          .filter((todo) => todo.status === status)
-          .map((todo) => (
-            <TodoItem key={todo.id} todo={todo} />
-          ))}
-      </div>
+      <Droppable droppableId={status}>
+        {({ innerRef, droppableProps, placeholder }) => (
+          <div className='mt-4 pb-10' ref={innerRef} {...droppableProps}>
+            {todos
+              .filter((todo) => todo.status === status)
+              .map((todo, index) => (
+                <TodoItem key={todo.id} index={index} todo={todo} />
+              ))}
+            {placeholder}
+          </div>
+        )}
+      </Droppable>
     </div>
   );
 };

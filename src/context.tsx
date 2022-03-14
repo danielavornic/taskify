@@ -17,21 +17,19 @@ export const TodosProvider: FC<ReactNode> = ({ children }) => {
   };
 
   const updateTodoName = (id: number, newName: string) => {
-    const updatedTodoList = state.todos.map((t) => {
-      if (t.id === id) return { ...t, name: newName };
-      return t;
-    });
+    const updatedTodoList = state.todos.map((todo) =>
+      todo.id === id ? { ...todo, name: newName } : todo
+    );
     dispatch({
       type: ActionKind.UPDATE_TODO_NAME,
       payload: updatedTodoList,
     });
   };
 
-  const updateTodoStatus = (id: number, status: string) => {
-    const updatedTodoList = state.todos.map((t) => {
-      if (t.id === id) return { ...t, status: status };
-      return t;
-    });
+  const updateTodoStatus = (id: number, newStatus: string) => {
+    const updatedTodoList = state.todos.map((todo) =>
+      todo.id === id ? { ...todo, status: newStatus } : todo
+    );
     dispatch({
       type: ActionKind.UPDATE_TODO_STATUS,
       payload: updatedTodoList,
@@ -39,7 +37,7 @@ export const TodosProvider: FC<ReactNode> = ({ children }) => {
   };
 
   const deleteTodo = (id: number) => {
-    const updatedTodoList = state.todos.filter((t) => t.id !== id);
+    const updatedTodoList = state.todos.filter((todo) => todo.id !== id);
     dispatch({
       type: ActionKind.DELETE_TODO,
       payload: updatedTodoList,
