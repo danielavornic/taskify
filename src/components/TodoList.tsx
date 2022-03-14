@@ -16,8 +16,14 @@ const TodoList: FC<Props> = ({ status }) => {
     <div className='basis-1/3'>
       <Status status={status} />
       <Droppable droppableId={status}>
-        {({ innerRef, droppableProps, placeholder }) => (
-          <div className='mt-4 pb-10' ref={innerRef} {...droppableProps}>
+        {({ innerRef, droppableProps, placeholder }, snapshot) => (
+          <div
+            className={`mt-3 pb-10 border-t-2 border-transparent ${
+              snapshot.isDraggingOver && 'border-slate-500'
+            }`}
+            ref={innerRef}
+            {...droppableProps}
+          >
             {todos
               .filter((todo) => todo.status === status)
               .map((todo, index) => (
