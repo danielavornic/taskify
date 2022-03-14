@@ -4,25 +4,24 @@ interface Props {
   status: string;
 }
 
-const Status: FC<Props> = ({ status }) => {
-  const color =
-    status === 'Not started'
-      ? 'red'
-      : status === 'In progress'
-      ? 'orange'
-      : 'green';
-  const statusStyles = [
-    'text-sm',
-    `text-${color}-900`,
-    `bg-${color}-400`,
-    'py-0.5',
-    'px-2',
-    'rounded',
-    'cursor-pointer',
-    'hover:opacity-90',
-  ].join(' ');
+const statusStyles = [
+  'text-sm',
+  'py-0.5',
+  'px-2',
+  'rounded',
+  'cursor-pointer',
+  'hover:opacity-90',
+].join(' ');
 
-  return <span className={statusStyles}>{status}</span>;
+const Status: FC<Props> = ({ status }) => {
+  const colors =
+    status === 'Not started'
+      ? 'text-red-900 bg-red-400'
+      : status === 'In progress'
+      ? 'text-orange-900 bg-orange-400'
+      : 'text-green-900 bg-green-400';
+
+  return <span className={`${statusStyles} ${colors}`}>{status}</span>;
 };
 
 export default Status;
