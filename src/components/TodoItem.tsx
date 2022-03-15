@@ -1,9 +1,9 @@
 import { FC, ChangeEvent, KeyboardEvent, useRef, useState } from 'react';
+import { Draggable } from 'react-beautiful-dnd';
 import { IoTrash } from 'react-icons/io5';
 
 import { Todo } from '../types';
 import useTodos from '../context';
-import { Draggable } from 'react-beautiful-dnd';
 
 interface Props {
   index: number;
@@ -43,11 +43,11 @@ const TodoItem: FC<Props> = ({ index, todo }) => {
   const spanRef = useRef<HTMLSpanElement>(null);
 
   const handleDeleteClick = () => {
-    if (status === 'Done') deleteTodo(id);
+    if (status === 'done') deleteTodo(id, status);
     else {
       const confirmDelete = () =>
         window.confirm('Are you sure you want to delete this todo?');
-      confirmDelete() && deleteTodo(id);
+      confirmDelete() && deleteTodo(id, status);
     }
   };
 
@@ -58,7 +58,7 @@ const TodoItem: FC<Props> = ({ index, todo }) => {
     e.code === 'Enter' && !e.shiftKey && spanRef.current?.blur();
 
   const handleBlur = () => {
-    updateTodoName(id, newName);
+    updateTodoName(id, newName, status);
     setItemBg('bg-slate-800');
   };
 

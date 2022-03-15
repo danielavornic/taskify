@@ -1,7 +1,9 @@
 import { FC } from 'react';
 
+import { StatusTitleType } from '../types';
+
 interface Props {
-  status: string;
+  statusTitle: StatusTitleType;
 }
 
 const statusStyles = [
@@ -13,15 +15,15 @@ const statusStyles = [
   'hover:opacity-90',
 ].join(' ');
 
-const Status: FC<Props> = ({ status }) => {
+const Status: FC<Props> = ({ statusTitle }) => {
   const colors =
-    status === 'Not started'
+    statusTitle === 'Not started'
       ? 'text-red-900 bg-red-400'
-      : status === 'In progress'
+      : statusTitle === 'In progress'
       ? 'text-orange-900 bg-orange-400'
       : 'text-green-900 bg-green-400';
 
-  return <span className={`${statusStyles} ${colors}`}>{status}</span>;
+  return <span className={`${statusStyles} ${colors}`}>{statusTitle}</span>;
 };
 
 export default Status;

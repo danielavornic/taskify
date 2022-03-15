@@ -1,4 +1,5 @@
 import { ChangeEvent, FormEvent, FC, useRef, useState } from 'react';
+
 import useTodos from '../context';
 import { Todo } from '../types';
 
@@ -17,7 +18,7 @@ const InputField: FC = () => {
       const newTodo: Todo = {
         id: Date.now(),
         name: todo,
-        status: 'Not started',
+        status: 'notStarted',
       };
       addTodo(newTodo);
       setTodo('');

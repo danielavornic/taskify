@@ -1,20 +1,22 @@
 import { FC } from 'react';
 import { Droppable } from 'react-beautiful-dnd';
 
+import { StatusType, StatusTitleType } from '../types';
 import useTodos from '../context';
-import Status from './Status';
 import TodoItem from './TodoItem';
+import Status from './Status';
 
 interface Props {
-  status: string;
+  status: StatusType;
+  statusTitle: StatusTitleType;
 }
 
-const TodoList: FC<Props> = ({ status }) => {
+const TodoList: FC<Props> = ({ status, statusTitle }) => {
   const { todos } = useTodos();
 
   return (
     <div className='basis-1/3'>
-      <Status status={status} />
+      <Status statusTitle={statusTitle} />
       <Droppable droppableId={status}>
         {({ innerRef, droppableProps, placeholder }, snapshot) => (
           <div
@@ -24,11 +26,9 @@ const TodoList: FC<Props> = ({ status }) => {
             ref={innerRef}
             {...droppableProps}
           >
-            {todos
-              .filter((todo) => todo.status === status)
-              .map((todo, index) => (
-                <TodoItem key={todo.id} index={index} todo={todo} />
-              ))}
+            {todos[status].map((todo, index) => (
+              <TodoItem key={todo.id} index={index} todo={todo} />
+            ))}
             {placeholder}
           </div>
         )}

@@ -1,28 +1,41 @@
 import { FC } from 'react';
-
-import { statuses } from '../types';
-import useTodos from '../context';
-
-import TodoList from './TodoList';
 import { DragDropContext, DropResult } from 'react-beautiful-dnd';
 
+import { statuses, statusTitles, StatusType, Todo } from '../types';
+import useTodos from '../context';
+import TodoList from './TodoList';
+
 const TodoListsContainer: FC = () => {
-  const { todos, updateTodoStatus } = useTodos();
+  const { todos, count, setAllTodos } = useTodos();
 
   const handleDragEnd = (result: DropResult) => {
-    const { source, destination, draggableId } = result;
+    const { source, destination } = result;
 
-    if (!destination || source.droppableId === destination.droppableId) return;
+    if (!destination) return;
 
-    updateTodoStatus(parseInt(draggableId), destination.droppableId);
+    const srcIndex = source.index;
+    const destIndex = destination.index;
+    const currStatus = source.droppableId as StatusType;
+    const newStatus = destination.droppableId as StatusType;
+
+    if (currStatus === newStatus && srcIndex === destIndex) return;
+
+    const todo: Todo = { ...todos[currStatus][srcIndex], status: newStatus };
+    todos[currStatus].splice(srcIndex, 1);
+    todos[newStatus].splice(destIndex, 0, todo);
+    setAllTodos(todos);
   };
 
   return (
     <DragDropContext onDragEnd={handleDragEnd}>
-      {todos.length > 0 && (
+      {count > 0 && (
         <div className='grid gap-5 grid-cols-1 sm:grid-cols-3 mt-10 px-8 md:px-0 lg:px-10'>
           {statuses.map((status, idx) => (
-            <TodoList status={status} key={idx} />
+            <TodoList
+              status={status}
+              statusTitle={statusTitles[idx]}
+              key={idx}
+            />
           ))}
         </div>
       )}

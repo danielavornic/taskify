@@ -1,6 +1,6 @@
 import { createContext, FC, ReactNode, useContext, useReducer } from 'react';
 
-import { Todo, ActionKind, StateInterface } from './types';
+import { Todo, ActionKind, StateInterface, StatusType, Todos } from './types';
 import todosReducer, { initialState } from './reducer';
 
 const TodosContext = createContext<StateInterface>(initialState);
@@ -8,48 +8,58 @@ const TodosContext = createContext<StateInterface>(initialState);
 export const TodosProvider: FC<ReactNode> = ({ children }) => {
   const [state, dispatch] = useReducer(todosReducer, initialState);
 
+  const { todos, count } = state;
+
   const addTodo = (todo: Todo) => {
-    const updatedTodoList: Todo[] = state.todos.concat(todo);
+    const updatedTodoList: Todo[] = todos.notStarted.concat(todo);
+    updateTodoCount(count + 1);
     dispatch({
       type: ActionKind.ADD_TODO,
-      payload: updatedTodoList,
+      payload: { ...todos, notStarted: updatedTodoList },
     });
   };
 
-  const updateTodoName = (id: number, newName: string) => {
-    const updatedTodoList = state.todos.map((todo) =>
+  const updateTodoName = (id: number, newName: string, status: StatusType) => {
+    const updatedTodoList = todos[status].map((todo) =>
       todo.id === id ? { ...todo, name: newName } : todo
     );
     dispatch({
       type: ActionKind.UPDATE_TODO_NAME,
-      payload: updatedTodoList,
+      payload: { ...todos, [status]: updatedTodoList },
     });
   };
 
-  const updateTodoStatus = (id: number, newStatus: string) => {
-    const updatedTodoList = state.todos.map((todo) =>
-      todo.id === id ? { ...todo, status: newStatus } : todo
-    );
-    dispatch({
-      type: ActionKind.UPDATE_TODO_STATUS,
-      payload: updatedTodoList,
-    });
-  };
-
-  const deleteTodo = (id: number) => {
-    const updatedTodoList = state.todos.filter((todo) => todo.id !== id);
+  const deleteTodo = (id: number, status: StatusType) => {
+    const updatedTodoList = todos[status].filter((todo) => todo.id !== id);
+    updateTodoCount(count - 1);
     dispatch({
       type: ActionKind.DELETE_TODO,
-      payload: updatedTodoList,
+      payload: { ...todos, [status]: updatedTodoList },
+    });
+  };
+
+  const setAllTodos = (todosToSet: Todos) => {
+    dispatch({
+      type: ActionKind.SET_ALL_TODOS,
+      payload: todosToSet,
+    });
+  };
+
+  const updateTodoCount = (newCount: number) => {
+    dispatch({
+      type: ActionKind.UPDATE_TODO_COUNT,
+      payload: newCount,
     });
   };
 
   const value = {
-    todos: state.todos,
+    todos,
+    count,
     addTodo,
     updateTodoName,
-    updateTodoStatus,
     deleteTodo,
+    setAllTodos,
+    updateTodoCount,
   };
 
   return (
