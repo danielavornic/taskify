@@ -15,12 +15,12 @@ const TodoList: FC<Props> = ({ status, statusTitle }) => {
   const { todos } = useTodos();
 
   return (
-    <div className='basis-1/3'>
+    <div className='basis-1/3 h-full'>
       <Status statusTitle={statusTitle} />
       <Droppable droppableId={status}>
         {({ innerRef, droppableProps, placeholder }, snapshot) => (
           <div
-            className={`mt-3 pb-10 border-t-2 border-transparent ${
+            className={`h-full mt-3 pb-10 border-t-2 border-transparent ${
               snapshot.isDraggingOver && 'border-slate-500'
             }`}
             ref={innerRef}
