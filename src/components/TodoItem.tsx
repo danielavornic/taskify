@@ -87,7 +87,7 @@ const TodoItem: FC<Props> = ({ index, todo }) => {
             </span>
             <span
               title='Edit todo'
-              className='outline-none cursor-text'
+              className='outline-none cursor-text break-words'
               contentEditable
               suppressContentEditableWarning
               ref={spanRef}
