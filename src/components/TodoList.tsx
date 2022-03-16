@@ -11,13 +11,23 @@ interface Props {
   statusTitle: StatusTitleType;
 }
 
+const styles = [
+  'basis-1/3',
+  'flex',
+  'flex-col',
+  'h-full',
+  'w-96',
+  'mx-auto',
+  'sm:w-full',
+].join(' ');
+
 const TodoList: FC<Props> = ({ status, statusTitle }) => {
   const { todos } = useTodos();
 
   return (
     <Droppable droppableId={status}>
       {({ innerRef, droppableProps, placeholder }, { isDraggingOver }) => (
-        <div className='basis-1/3 h-full flex flex-col'>
+        <div className={styles}>
           <Status
             status={status}
             statusTitle={statusTitle}
