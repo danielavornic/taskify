@@ -3,6 +3,25 @@ import { ChangeEvent, FormEvent, FC, useRef, useState } from 'react';
 import useTodos from '../context';
 import { Todo } from '../types';
 
+const inputStyles = [
+  'w-96',
+  'py-2',
+  'px-4',
+  'text-sm',
+  'text-slate-400',
+  'font-body',
+  'bg-slate-700',
+  'shadow-sm',
+  'rounded',
+  'ease-in',
+  'duration-200',
+  'outline-none',
+  'hover:bg-slate-600',
+  'hover:text-slate-300',
+  'focus:bg-slate-600',
+  'focus:text-slate-300',
+].join(' ');
+
 const InputField: FC = () => {
   const { addTodo } = useTodos();
   const [todo, setTodo] = useState<string>('');
@@ -32,7 +51,7 @@ const InputField: FC = () => {
         ref={inputRef}
         type='text'
         placeholder='Type a task…'
-        className='w-96 py-2 px-4 text-sm text-slate-400 font-body bg-slate-700 shadow-sm rounded ease-in duration-200 outline-none hover:bg-slate-600 hover:text-slate-300 focus:bg-slate-600 focus:text-slate-300'
+        className={inputStyles}
         value={todo}
         onChange={handleChange}
       />
