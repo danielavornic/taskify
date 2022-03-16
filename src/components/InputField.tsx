@@ -9,7 +9,6 @@ const inputStyles = [
   'px-4',
   'text-sm',
   'text-slate-400',
-  'font-body',
   'bg-slate-700',
   'shadow-sm',
   'rounded',
