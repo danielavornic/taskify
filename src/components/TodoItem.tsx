@@ -73,7 +73,7 @@ const TodoItem: FC<Props> = ({ index, todo }) => {
   return (
     <Draggable draggableId={id.toString()} index={index}>
       {({ innerRef, draggableProps, dragHandleProps }) => (
-        <div
+        <li
           className={`${itemStyles} ${itemBg}`}
           ref={innerRef}
           {...draggableProps}
@@ -107,7 +107,7 @@ const TodoItem: FC<Props> = ({ index, todo }) => {
           >
             <IoClose />
           </span>
-        </div>
+        </li>
       )}
     </Draggable>
   );
