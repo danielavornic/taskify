@@ -29,7 +29,7 @@ const TodoListsContainer: FC = () => {
   return (
     <DragDropContext onDragEnd={handleDragEnd}>
       {count > 0 && (
-        <div className='grid gap-5 grid-cols-1 sm:grid-cols-3 mt-10 px-8 md:px-0 lg:px-10'>
+        <div className='grid gap-5 grid-cols-1 sm:grid-cols-3 mt-10 lg:px-10'>
           {statuses.map((status, idx) => (
             <TodoList
               status={status}
