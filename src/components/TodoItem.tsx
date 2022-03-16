@@ -1,6 +1,6 @@
 import { FC, ChangeEvent, KeyboardEvent, useRef, useState } from 'react';
 import { Draggable } from 'react-beautiful-dnd';
-import { IoTrash } from 'react-icons/io5';
+import { IoClose, IoReorderThree } from 'react-icons/io5';
 
 import { Todo } from '../types';
 import useTodos from '../context';
@@ -30,11 +30,17 @@ const styles = {
     'cursor-pointer',
     'hover:text-red-300',
   ].join(' '),
+  reorderStyles: [
+    'mr-2',
+    'opacity-40',
+    'transition-opacity',
+    'hover:opacity-100',
+  ].join(' '),
 };
 
 const TodoItem: FC<Props> = ({ index, todo }) => {
   const { id, name, status } = todo;
-  const { itemStyles, deleteStyles } = styles;
+  const { itemStyles, deleteStyles, reorderStyles } = styles;
 
   const { deleteTodo, updateTodoName } = useTodos();
   const [newName, setNewName] = useState<string>(todo.name);
@@ -70,28 +76,36 @@ const TodoItem: FC<Props> = ({ index, todo }) => {
         <div
           className={`${itemStyles} ${itemBg}`}
           ref={innerRef}
-          {...dragHandleProps}
           {...draggableProps}
         >
+          <div className='flex items-center'>
+            <span
+              title='Reorder todo'
+              className={reorderStyles}
+              {...dragHandleProps}
+            >
+              <IoReorderThree />
+            </span>
+            <span
+              title='Edit todo'
+              className='outline-none cursor-text'
+              contentEditable
+              suppressContentEditableWarning
+              ref={spanRef}
+              onInput={handleInput}
+              onKeyPress={handleKeydown}
+              onBlur={handleBlur}
+              onFocus={handleFocus}
+            >
+              {name}
+            </span>
+          </div>
           <span
-            className='outline-none cursor-text'
-            title='Edit todo'
-            contentEditable
-            suppressContentEditableWarning
-            ref={spanRef}
-            onInput={handleInput}
-            onKeyPress={handleKeydown}
-            onBlur={handleBlur}
-            onFocus={handleFocus}
-          >
-            {name}
-          </span>
-          <span
-            className={deleteStyles}
             title='Delete todo'
+            className={deleteStyles}
             onClick={handleDeleteClick}
           >
-            <IoTrash />
+            <IoClose />
           </span>
         </div>
       )}
