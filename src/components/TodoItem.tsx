@@ -19,7 +19,6 @@ const styles = {
     'flex',
     'justify-between',
     'items-center',
-    'cursor-pointer',
     'shadow-sm',
     'transition-all',
     'hover:bg-slate-700',
@@ -28,7 +27,7 @@ const styles = {
     'ml-2',
     'transition-colors',
     'cursor-pointer',
-    'hover:text-red-300',
+    'hover:text-red-400',
   ].join(' '),
   reorderStyles: [
     'mr-2',
