@@ -1,7 +1,7 @@
 import { ChangeEvent, FormEvent, FC, useRef, useState } from 'react';
 
-import useTodos from '../context';
-import { Todo } from '../types';
+import { Todo } from '../models/todos';
+import useTodosContext from '../state/context';
 
 const inputStyles = [
   'w-96',
@@ -22,7 +22,7 @@ const inputStyles = [
 ].join(' ');
 
 const InputField: FC = () => {
-  const { addTodo } = useTodos();
+  const { addTodo } = useTodosContext();
   const [todo, setTodo] = useState<string>('');
 
   const inputRef = useRef<HTMLInputElement>(null);
@@ -32,6 +32,8 @@ const InputField: FC = () => {
 
   const handleFormSubmit = (e: FormEvent) => {
     e.preventDefault();
+    inputRef.current?.blur();
+
     if (todo) {
       const newTodo: Todo = {
         id: Date.now(),
@@ -41,7 +43,6 @@ const InputField: FC = () => {
       addTodo(newTodo);
       setTodo('');
     }
-    inputRef.current?.blur();
   };
 
   return (

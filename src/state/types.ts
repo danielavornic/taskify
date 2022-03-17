@@ -1,20 +1,5 @@
-export const statuses = ['notStarted', 'inProgress', 'done'] as const;
-export const statusTitles = ['Not started', 'In progress', 'Done'] as const;
-
-export type StatusType = typeof statuses[number];
-export type StatusTitleType = typeof statusTitles[number];
-
-export interface Todo {
-  id: number;
-  name: string;
-  status: StatusType;
-}
-
-export interface Todos {
-  notStarted: Todo[];
-  inProgress: Todo[];
-  done: Todo[];
-}
+import { Todo, Todos } from '../models/todos';
+import { StatusType } from '../models/status';
 
 export interface StateInterface {
   todos: Todos;
@@ -24,6 +9,14 @@ export interface StateInterface {
   deleteTodo: (id: number, status: StatusType) => void;
   setAllTodos: (todos: Todos) => void;
   updateTodoCount: (newCount: number) => void;
+}
+
+export enum ActionKind {
+  ADD_TODO = 'ADD_TODO',
+  UPDATE_TODO_NAME = 'UPDATE_TODO_NAME',
+  DELETE_TODO = 'DELETE_TODO',
+  SET_ALL_TODOS = 'SET_ALL_TODOS',
+  UPDATE_TODO_COUNT = 'UPDATE_TODO_COUNT',
 }
 
 type ActionMap<M extends { [index: string]: any }> = {
@@ -36,14 +29,6 @@ type ActionMap<M extends { [index: string]: any }> = {
         payload: M[Key];
       };
 };
-
-export enum ActionKind {
-  ADD_TODO = 'ADD_TODO',
-  UPDATE_TODO_NAME = 'UPDATE_TODO_NAME',
-  DELETE_TODO = 'DELETE_TODO',
-  SET_ALL_TODOS = 'SET_ALL_TODOS',
-  UPDATE_TODO_COUNT = 'UPDATE_TODO_COUNT',
-}
 
 type Payload = {
   [ActionKind.ADD_TODO]: Todos;

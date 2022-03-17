@@ -1,12 +1,13 @@
 import { FC } from 'react';
 import { DragDropContext, DropResult } from 'react-beautiful-dnd';
 
-import { statuses, statusTitles, StatusType, Todo } from '../types';
-import useTodos from '../context';
+import { Todo } from '../models/todos';
+import { statuses, statusTitles, StatusType } from '../models/status';
+import useTodosContext from '../state/context';
 import TodoList from './TodoList';
 
 const TodoListsContainer: FC = () => {
-  const { todos, count, setAllTodos } = useTodos();
+  const { todos, count, setAllTodos } = useTodosContext();
 
   const handleDragEnd = (result: DropResult) => {
     const { source, destination } = result;

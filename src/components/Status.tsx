@@ -1,6 +1,6 @@
 import { FC } from 'react';
 
-import { StatusTitleType, StatusType } from '../types';
+import { StatusTitleType, StatusType } from '../models/status';
 
 interface Props {
   status: StatusType;

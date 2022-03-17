@@ -2,8 +2,8 @@ import { FC, ChangeEvent, KeyboardEvent, useRef, useState } from 'react';
 import { Draggable } from 'react-beautiful-dnd';
 import { IoClose, IoReorderThree } from 'react-icons/io5';
 
-import { Todo } from '../types';
-import useTodos from '../context';
+import { Todo } from '../models/todos';
+import useTodosContext from '../state/context';
 
 interface Props {
   index: number;
@@ -41,7 +41,7 @@ const TodoItem: FC<Props> = ({ index, todo }) => {
   const { id, name, status } = todo;
   const { itemStyles, deleteStyles, reorderStyles } = styles;
 
-  const { deleteTodo, updateTodoName } = useTodos();
+  const { deleteTodo, updateTodoName } = useTodosContext();
   const [newName, setNewName] = useState<string>(todo.name);
   const [itemBg, setItemBg] = useState<string>('bg-slate-800');
 

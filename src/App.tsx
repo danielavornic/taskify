@@ -1,6 +1,6 @@
 import { FC } from 'react';
 
-import { TodosProvider } from './context';
+import { TodosProvider } from './state/context';
 
 import InputField from './components/InputField';
 import TodoListsContainer from './components/TodoListsContainer';

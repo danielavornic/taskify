@@ -1,10 +1,10 @@
 import { FC } from 'react';
 import { Droppable } from 'react-beautiful-dnd';
 
-import { StatusType, StatusTitleType } from '../types';
-import useTodos from '../context';
-import TodoItem from './TodoItem';
+import { StatusType, StatusTitleType } from '../models/status';
+import useTodosContext from '../state/context';
 import Status from './Status';
+import TodoItem from './TodoItem';
 
 interface Props {
   status: StatusType;
@@ -22,7 +22,7 @@ const styles = [
 ].join(' ');
 
 const TodoList: FC<Props> = ({ status, statusTitle }) => {
-  const { todos } = useTodos();
+  const { todos } = useTodosContext();
 
   return (
     <Droppable droppableId={status}>

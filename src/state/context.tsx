@@ -1,6 +1,8 @@
 import { createContext, FC, ReactNode, useContext, useReducer } from 'react';
 
-import { Todo, ActionKind, StateInterface, StatusType, Todos } from './types';
+import { Todo, Todos } from '../models/todos';
+import { StatusType } from '../models/status';
+import { ActionKind, StateInterface } from './types';
 import todosReducer, { initialState } from './reducer';
 
 const TodosContext = createContext<StateInterface>(initialState);
@@ -67,6 +69,6 @@ export const TodosProvider: FC<ReactNode> = ({ children }) => {
   );
 };
 
-const useTodos = () => useContext(TodosContext);
+const useTodosContext = () => useContext(TodosContext);
 
-export default useTodos;
+export default useTodosContext;
