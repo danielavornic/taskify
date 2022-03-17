@@ -2,7 +2,7 @@ import { FC } from 'react';
 import { DragDropContext, DropResult } from 'react-beautiful-dnd';
 
 import { Todo } from '../models/todos';
-import { statuses, statusTitles, StatusType } from '../models/status';
+import { statuses, statusTitles, Status } from '../models/status';
 import useTodosContext from '../state/context';
 import TodoList from './TodoList';
 
@@ -16,8 +16,8 @@ const TodoListsContainer: FC = () => {
 
     const srcIndex = source.index;
     const destIndex = destination.index;
-    const currStatus = source.droppableId as StatusType;
-    const newStatus = destination.droppableId as StatusType;
+    const currStatus = source.droppableId as Status;
+    const newStatus = destination.droppableId as Status;
 
     if (currStatus === newStatus && srcIndex === destIndex) return;
 

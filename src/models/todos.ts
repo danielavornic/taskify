@@ -1,9 +1,9 @@
-import { StatusType } from './status';
+import { Status } from './status';
 
 export interface Todo {
   id: number;
   name: string;
-  status: StatusType;
+  status: Status;
 }
 
 export interface Todos {

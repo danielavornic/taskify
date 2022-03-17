@@ -1,14 +1,14 @@
 import { FC } from 'react';
 import { Droppable } from 'react-beautiful-dnd';
 
-import { StatusType, StatusTitleType } from '../models/status';
+import { Status, StatusTitle } from '../models/status';
 import useTodosContext from '../state/context';
-import Status from './Status';
+import StatusLabel from './StatusLabel';
 import TodoItem from './TodoItem';
 
 interface Props {
-  status: StatusType;
-  statusTitle: StatusTitleType;
+  status: Status;
+  statusTitle: StatusTitle;
 }
 
 const styles = [
@@ -28,7 +28,7 @@ const TodoList: FC<Props> = ({ status, statusTitle }) => {
     <Droppable droppableId={status}>
       {({ innerRef, droppableProps, placeholder }, { isDraggingOver }) => (
         <div className={styles}>
-          <Status
+          <StatusLabel
             status={status}
             statusTitle={statusTitle}
             isDraggingOver={isDraggingOver}

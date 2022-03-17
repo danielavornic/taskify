@@ -1,10 +1,10 @@
 import { FC } from 'react';
 
-import { StatusTitleType, StatusType } from '../models/status';
+import { StatusTitle, Status } from '../models/status';
 
 interface Props {
-  status: StatusType;
-  statusTitle: StatusTitleType;
+  status: Status;
+  statusTitle: StatusTitle;
   isDraggingOver: boolean;
 }
 
@@ -32,7 +32,7 @@ const styles = {
   },
 };
 
-const Status: FC<Props> = ({ status, statusTitle, isDraggingOver }) => {
+const StatusLabel: FC<Props> = ({ status, statusTitle, isDraggingOver }) => {
   const { statusWrapperStyles, statusSpanStyles, colorsNormal, colorsDrag } =
     styles;
   const colors = isDraggingOver ? colorsDrag[status] : colorsNormal[status];
@@ -44,4 +44,4 @@ const Status: FC<Props> = ({ status, statusTitle, isDraggingOver }) => {
   );
 };
 
-export default Status;
+export default StatusLabel;

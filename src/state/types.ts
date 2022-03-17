@@ -1,12 +1,12 @@
 import { Todo, Todos } from '../models/todos';
-import { StatusType } from '../models/status';
+import { Status } from '../models/status';
 
 export interface StateInterface {
   todos: Todos;
   count: number;
   addTodo: (todo: Todo) => void;
-  updateTodoName: (id: number, newName: string, status: StatusType) => void;
-  deleteTodo: (id: number, status: StatusType) => void;
+  updateTodoName: (id: number, newName: string, status: Status) => void;
+  deleteTodo: (id: number, status: Status) => void;
   setAllTodos: (todos: Todos) => void;
   updateTodoCount: (newCount: number) => void;
 }

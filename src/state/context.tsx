@@ -1,7 +1,7 @@
 import { createContext, FC, ReactNode, useContext, useReducer } from 'react';
 
 import { Todo, Todos } from '../models/todos';
-import { StatusType } from '../models/status';
+import { Status } from '../models/status';
 import { ActionKind, StateInterface } from './types';
 import todosReducer, { initialState } from './reducer';
 
@@ -21,7 +21,7 @@ export const TodosProvider: FC<ReactNode> = ({ children }) => {
     });
   };
 
-  const updateTodoName = (id: number, newName: string, status: StatusType) => {
+  const updateTodoName = (id: number, newName: string, status: Status) => {
     const updatedTodoList = todos[status].map((todo) =>
       todo.id === id ? { ...todo, name: newName } : todo
     );
@@ -31,7 +31,7 @@ export const TodosProvider: FC<ReactNode> = ({ children }) => {
     });
   };
 
-  const deleteTodo = (id: number, status: StatusType) => {
+  const deleteTodo = (id: number, status: Status) => {
     const updatedTodoList = todos[status].filter((todo) => todo.id !== id);
     updateTodoCount(count - 1);
     dispatch({
